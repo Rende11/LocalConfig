@@ -45,3 +45,13 @@
       apt: name=clojure1.6 state=present
       become: yes
       tags: clj
+
+    - name: Downloads leiningen
+      get_url: url=https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein dest=/usr/bin/ mode=0755
+      become: yes
+
+    - name: Removes .lein
+      file: path={{ ansible_env.HOME }}/.lein state=absent
+
+    - name: Launches lein
+      shell: lein
